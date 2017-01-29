@@ -1,7 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: maxym
- * Date: 29.01.17
- * Time: 22:48
- */
+
+function __autoload($className)
+{
+    $paths = array(
+        'models/',
+        'controllers/',
+    );
+
+    foreach($paths as $path)
+    {
+        $file = ROOT . $path . $className . '.php';
+
+        if(is_file($file))
+        {
+            include_once $file;
+        }
+    }
+}
