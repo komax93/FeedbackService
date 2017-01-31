@@ -4,7 +4,7 @@ function __autoload($className)
 {
     $paths = array(
         'models/',
-        'controllers/',
+        'components/',
     );
 
     foreach($paths as $path)

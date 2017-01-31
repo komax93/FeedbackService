@@ -13,3 +13,5 @@ require_once(ROOT . 'components/Autoload.php');
 // 3. Initialization DB
 
 // 4. Initialization Router
+$router = new Router();
+$router->run();
