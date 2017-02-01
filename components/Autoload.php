@@ -1,19 +1,21 @@
 <?php
-
-function __autoload($className)
-{
+/**
+ * Autoloader
+ * Auto load classes from models/, components/ directories
+ */
+spl_autoload_register(function($className){
     $paths = array(
         'models/',
         'components/',
     );
 
-    foreach($paths as $path)
+    foreach ($paths as $path)
     {
         $file = ROOT . $path . $className . '.php';
 
         if(is_file($file))
         {
-            include_once $file;
+            require_once $file;
         }
     }
-}
+});

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Router
+ * This class parses URI-address and returns required action-method from controller,
+ * which contains necessary routes
+ */
 class Router
 {
     private $routes;
@@ -7,10 +12,10 @@ class Router
     public function __construct()
     {
         $routesPath = ROOT . 'config/routes.php';
-        $this->routes = include_once ($routesPath);
+        $this->routes = require_once ($routesPath);
     }
 
-    private function getURL()
+    private function getURI()
     {
         if(!empty($_SERVER['REQUEST_URI']))
         {
@@ -20,9 +25,9 @@ class Router
 
     public function run()
     {
-        $uri = $this->getURL();
+        $uri = $this->getURI();
 
-        foreach($this->routes as $uriPattern => $path)
+        foreach ($this->routes as $uriPattern => $path)
         {
             if(preg_match("~$uriPattern~", $uri))
             {
@@ -32,10 +37,10 @@ class Router
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
                 $parameters = $segments;
-                $controllerFile = ROOT . 'controllers/' . $controllerName . ".php";
+                $controllerFile = ROOT . 'controllers/' . $controllerName . '.php';
                 if(file_exists($controllerFile))
                 {
-                    include_once($controllerFile);
+                    require_once ($controllerFile);
                 }
 
                 $controllerObject = new $controllerName;

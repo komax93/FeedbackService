@@ -10,8 +10,6 @@ session_start();
 define('ROOT', dirname(__FILE__) . '/');
 require_once(ROOT . 'components/Autoload.php');
 
-// 3. Initialization DB
-
-// 4. Initialization Router
+// 3. Initialization Router
 $router = new Router();
 $router->run();
