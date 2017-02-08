@@ -1,4 +1,5 @@
-CREATE DATABASE feedback;
+#DROP DATABASE IF EXISTS feedback;
+CREATE DATABASE feedback CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE feedback;
 
 CREATE TABLE users (
