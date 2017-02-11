@@ -11,10 +11,18 @@ class Database
         $path = ROOT . 'core/config/db_params.php';
         $dbConfig = require_once ($path);
 
-        $dsn = "mysql:host={$dbConfig['host']};dbname={$dbConfig['dbname']}";
-        $db = new PDO($dsn, $dbConfig['user'], $dbConfig['password']);
+        try
+        {
+            $dsn = "mysql:host={$dbConfig['host']};dbname={$dbConfig['dbname']}";
 
-        $db->exec("set names utf8");
+            $db = new PDO($dsn, $dbConfig['user'], $dbConfig['password']);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $db->exec("set names utf8");
+        }
+        catch (PDOException $e)
+        {
+            die("Connection is wrong. Message: " . $e->getMessage());
+        }
 
         return $db;
     }

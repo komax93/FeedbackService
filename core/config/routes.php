@@ -1,5 +1,6 @@
 <?php
 
 return array(
-    '' => 'site/index', // SiteController => actionIndex
+    '/save' => 'site/save', //SiteController => actionSave
+    '' => 'site/index',    // SiteController => actionIndex
 );
