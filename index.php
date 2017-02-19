@@ -8,7 +8,7 @@ session_start();
 
 // 2. Including system core
 define('ROOT', dirname(__FILE__) . '/');
-require_once(ROOT . 'core/Autoload.php');
+require_once(ROOT . 'core/components/Autoload.php');
 
 // 3. Initialization Router
 $router = new Router();

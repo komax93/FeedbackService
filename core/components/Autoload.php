@@ -6,6 +6,7 @@
 spl_autoload_register(function($className){
     $paths = array(
         'app/models/',
+        'core/components/',
         'core/',
     );
 
