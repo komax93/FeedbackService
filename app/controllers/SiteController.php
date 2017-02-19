@@ -20,12 +20,16 @@ class SiteController
             $text = filter_var($_POST['text'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $imageFile = (!empty($_FILES['file']['tmp_name'])) ? $_FILES['file'] : null;
 
-            $imgResult = Image::save($imageFile);
-            $result = Check::checkParameters($login, $email, $text, $imgResult);
+            $result = Check::checkParameters($login, $email, $text);
             
             if($result !== false)
             {
-                Feedback::saveFeed($login, $email, $text, $imgResult);
+                $imgResult = Image::save($imageFile);
+
+                if(Check::checkImage($imgResult))
+                {
+                    Feedback::saveFeed($login, $email, $text, $imgResult);
+                }
             }
         }
 
