@@ -18,11 +18,14 @@ class SiteController
             $login = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $text = filter_var($_POST['text'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $result = Feedback::checkParameters($login, $email, $text);
+            $imageFile = (!empty($_FILES['file']['tmp_name'])) ? $_FILES['file'] : null;
 
+            $imgResult = Image::save($imageFile);
+            $result = Check::checkParameters($login, $email, $text, $imgResult);
+            
             if($result !== false)
             {
-                Feedback::saveFeed($login, $email, $text);
+                Feedback::saveFeed($login, $email, $text, $imgResult);
             }
         }
 

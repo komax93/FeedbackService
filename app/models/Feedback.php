@@ -9,7 +9,7 @@ class Feedback
         
         try
         {
-            $sql = "SELECT login, email, text, feed_date FROM feed ORDER BY {$orderBy} DESC";
+            $sql = "SELECT login, email, text, feed_date, image_path FROM feed ORDER BY {$orderBy} DESC";
             $feed = $db->query($sql);
             
             $i = 0;
@@ -21,6 +21,7 @@ class Feedback
                 $feedbackList[$i]['email'] = $row['email'];
                 $feedbackList[$i]['text'] = $row['text'];
                 $feedbackList[$i]['feed_date'] = date('d-m-Y H:i:s', $row['feed_date']);
+                $feedbackList[$i]['image_path'] = $row['image_path'];
                 $i++;
             }
             
@@ -32,20 +33,22 @@ class Feedback
         }
     }
 
-    public static function saveFeed($login, $email, $text)
+    public static function saveFeed($login, $email, $text, $imgResult)
     {
         $db = Database::getConnection();
         $currentDate = time();
 
         try
         {
-            $sql = "INSERT INTO feed (login, email, text, feed_date) VALUES(:login, :email, :text, :feed_date)";
+            $sql = "INSERT INTO feed (login, email, text, feed_date, image_path) 
+                    VALUES(:login, :email, :text, :feed_date, :image_path)";
             $feed = $db->prepare($sql);
 
             $feed->bindParam(':login', $login, PDO::PARAM_STR);
             $feed->bindParam(':email', $email, PDO::PARAM_STR);
             $feed->bindParam(':text', $text, PDO::PARAM_STR);
             $feed->bindParam(':feed_date', $currentDate, PDO::PARAM_INT);
+            $feed->bindParam(':image_path', $imgResult, PDO::PARAM_STR);
 
             $feed->execute();
 
@@ -70,15 +73,5 @@ class Feedback
         {
             return 'feed_date';
         }
-    }
-    
-    public static function checkParameters($login, $email, $text)
-    {
-        if((strlen($login) < 3) || (filter_var($email, FILTER_VALIDATE_EMAIL) === false) || (strlen($text) < 3))
-        {
-            return false;
-        }
-        
-        return true;
     }
 }
