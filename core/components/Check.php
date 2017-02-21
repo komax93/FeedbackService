@@ -12,14 +12,44 @@ class Check
 
         return true;
     }
-    
+
+    public static function checkLogin($login)
+    {
+        if(strlen($login) > 2)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function checkEmail($email)
+    {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function checkPassword($password)
+    {
+        if(strlen($password) >= 6)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function checkImage($isUpload)
     {
         if($isUpload === false)
         {
             return false;
         }
-        
+
         return true;
     }
 }
