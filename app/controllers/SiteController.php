@@ -4,7 +4,7 @@ class SiteController
 {
     public function actionIndex()
     {
-        $order = isset($_GET['order']) ? filter_var($_GET['order'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : '';
+        $order = isset($_GET['order']) ? filter_var($_GET['order'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
         $feedbackList = Feedback::getSortedFeedbackBy($order);
 
         require_once (ROOT . 'app/views/site/index.php');
@@ -20,13 +20,30 @@ class SiteController
             $text = filter_var($_POST['text'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $imageFile = (!empty($_FILES['file']['tmp_name'])) ? $_FILES['file'] : null;
 
-            $result = Check::checkParameters($login, $email, $text);
-            
-            if($result !== false)
+            $errors = false;
+
+            if(!Check::checkLogin($login))
+            {
+                $errors[] = "Incorrect login. Less than 2 symbols.";
+            }
+            if(!Check::checkEmail($email))
+            {
+                $errors[] = "Incorrect email format.";
+            }
+            if(!Check::checkText($text))
+            {
+                $errors[] = "Text is too short. Less than 3 symbols.";
+            }
+
+            if($errors === false)
             {
                 $imgResult = Image::save($imageFile);
 
-                if(Check::checkImage($imgResult))
+                if(!Check::checkImage($imgResult))
+                {
+                    $errors[] = "Error loading image.";
+                }
+                else
                 {
                     Feedback::saveFeed($login, $email, $text, $imgResult);
                 }

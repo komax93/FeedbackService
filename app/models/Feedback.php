@@ -29,7 +29,7 @@ class Feedback
         }
         catch (PDOException $e)
         {
-            return;
+            die("Query in Feedback::getSortedFeedbackBy() is wrong: {$e->getMessage()}");
         }
     }
 
@@ -55,23 +55,20 @@ class Feedback
         }
         catch (PDOException $e)
         {
-            return;
+            die("Query in Feedback::saveFeed() is wrong: {$e->getMessage()}");
         }
     }
 
     private static function getOrder($orderBy)
     {
-        if($orderBy == 'login')
+        switch ($orderBy)
         {
-            return 'login, feed_date';
-        }
-        else if($orderBy == 'email')
-        {
-            return 'email, feed_date';
-        }
-        else
-        {
-            return 'feed_date';
+            case 'login':
+                return 'login, feed_date';
+            case 'email':
+                return 'email, feed_date';
+            default:
+                return 'feed_date';
         }
     }
 }

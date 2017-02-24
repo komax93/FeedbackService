@@ -42,14 +42,24 @@ class Check
 
         return false;
     }
+    
+    public static function checkText($text)
+    {
+        if(strlen($text) > 3)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     public static function checkImage($isUpload)
     {
-        if($isUpload === false)
+        if($isUpload !== false)
         {
-            return false;
+            return true;
         }
 
-        return true;
+        return false;
     }
 }
