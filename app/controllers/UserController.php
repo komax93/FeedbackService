@@ -35,7 +35,16 @@ class UserController
 
             if($errors === false)
             {
-                User::register($login, $email, $password);
+                $user = [
+                    'login' => $login,
+                    'email' => $email,
+                    'password' => $password
+                ];
+
+                if(!User::isUserExists($user))
+                {
+                    User::register($user);
+                }
             }
         }
 
