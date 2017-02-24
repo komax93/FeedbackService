@@ -2,28 +2,32 @@
 
 class Database
 {
-    /**
-     * This static method returns database connection
-     * @return PDO
-     */
+    private static $connection;
+
+    private function __construct(){}
+
     public static function getConnection()
     {
-        $path = ROOT . 'core/config/db_params.php';
-        $dbConfig = require_once ($path);
-
-        try
+        if(empty(self::$connection))
         {
-            $dsn = "mysql:host={$dbConfig['host']};dbname={$dbConfig['dbname']}";
+            $path = ROOT . 'core/config/db_params.php';
+            $dbConfig = require_once ($path);
 
-            $db = new PDO($dsn, $dbConfig['user'], $dbConfig['password']);
-            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $db->exec("set names utf8");
-        }
-        catch (PDOException $e)
-        {
-            die("Connection is wrong. Message: " . $e->getMessage());
+            try
+            {
+                $dsn = "mysql:host={$dbConfig['host']};dbname={$dbConfig['dbname']}";
+                $db = new PDO($dsn, $dbConfig['user'], $dbConfig['password']);
+                $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $db->exec("set names utf8");
+
+                self::$connection = $db;
+            }
+            catch (PDOException $e)
+            {
+                die("Connection is wrong. Message: " . $e->getMessage());
+            }
         }
 
-        return $db;
+        return self::$connection;
     }
 }
