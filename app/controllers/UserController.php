@@ -4,7 +4,46 @@ class UserController
 {
     public function actionLogin()
     {
+        if(User::isAuthorised())
+        {
+            header("Location: /");
+        }
 
+        if(isset($_POST['submit']))
+        {
+            $login = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $errors = false;
+
+            if(!Check::checkLogin($login))
+            {
+                $errors[] = "Incorrect login. Less than 2 symbols";
+            }
+            if(!Check::checkPassword($password))
+            {
+                $errors[] = "Incorrect password. Less than 6 symbols";
+            }
+
+            if($errors === false)
+            {
+                $user = [
+                    'login' => $login,
+                    'password' => $password
+                ];
+
+
+                if(($userInfo = User::getUserData($user)) !== false)
+                {
+                    User::auth($userInfo);
+                    header("Location: /");
+                }
+                else
+                {
+                    $errors[] = "Wrong login or email!";
+                }
+            }
+        }
 
         require_once (ROOT . 'app/views/user/login.php');
         return true;
@@ -12,6 +51,11 @@ class UserController
 
     public function actionRegister()
     {
+        if(User::isAuthorised())
+        {
+            header("Location: /");
+        }
+
         if(isset($_POST['submit']))
         {
             $login = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -44,6 +88,12 @@ class UserController
                 if(!User::isUserExists($user))
                 {
                     User::register($user);
+                    User::auth($user);
+                    header("Location: /");
+                }
+                else
+                {
+                    $errors[] = "User is exists";
                 }
             }
         }
@@ -54,7 +104,14 @@ class UserController
 
     public function actionLogout()
     {
-        echo "logout";
+        if(User::isAuthorised())
+        {
+            $_SESSION = [];
+            unset($_COOKIE[session_name()]);
+            session_destroy();
+        }
+
+        header("Location: /");
         return true;
     }
 }

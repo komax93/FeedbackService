@@ -6,6 +6,13 @@
 </head>
 <body>
 <?php
+    if(isset($_SESSION['user']))
+    {
+        echo "<pre>";
+        print_r($_SESSION);
+        echo "</pre><br>";
+    }
+
     if(!empty($feedbackList))
     {
         foreach($feedbackList as $item)
