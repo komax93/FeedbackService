@@ -11,7 +11,7 @@ class Router
 
     public function __construct()
     {
-        $routesPath = ROOT . 'app/core/config/routes.php';
+        $routesPath = APP_PATH . 'core/config/routes.php';
         $this->routes = require_once ($routesPath);
     }
 
@@ -37,7 +37,7 @@ class Router
                 $actionName = 'action' . ucfirst(array_shift($segments));
 
                 $parameters = $segments;
-                $controllerFile = ROOT . 'app/controllers/' . $controllerName . '.php';
+                $controllerFile = APP_PATH . 'controllers/' . $controllerName . '.php';
                 if(file_exists($controllerFile))
                 {
                     require_once ($controllerFile);

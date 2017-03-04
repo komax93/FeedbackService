@@ -7,8 +7,9 @@ error_reporting(E_ALL);
 session_start();
 
 // 2. Including system core
-define('ROOT', dirname(__FILE__) . '/../');
-require_once(ROOT . 'app/core/components/Autoload.php');
+define('ROOT', dirname(__DIR__));
+define('APP_PATH', ROOT . '/app/');
+require_once(APP_PATH . 'core/components/Autoload.php');
 
 // 3. Initialization Router
 $router = new Router();

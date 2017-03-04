@@ -45,7 +45,7 @@ class UserController
             }
         }
 
-        require_once (ROOT . 'app/views/user/login.php');
+        require_once (APP_PATH . 'views/user/login.php');
         return true;
     }
 
@@ -98,7 +98,7 @@ class UserController
             }
         }
 
-        require_once (ROOT . 'app/views/user/register.php');
+        require_once (APP_PATH . 'views/user/register.php');
         return true;
     }
 

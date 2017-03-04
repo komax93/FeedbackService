@@ -7,7 +7,7 @@ class SiteController
         $order = isset($_GET['order']) ? filter_var($_GET['order'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
         $feedbackList = Feedback::getSortedFeedbackBy($order);
 
-        require_once (ROOT . 'app/views/site/index.php');
+        require_once (APP_PATH. 'views/site/index.php');
         return true;
     }
 

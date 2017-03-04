@@ -5,13 +5,13 @@
  */
 spl_autoload_register(function($className){
     $paths = array(
-        'app/models/',
-        'app/core/components/',
+        'models/',
+        'core/components/',
     );
 
     foreach ($paths as $path)
     {
-        $file = ROOT . $path . $className . '.php';
+        $file = APP_PATH . $path . $className . '.php';
 
         if(is_file($file))
         {
