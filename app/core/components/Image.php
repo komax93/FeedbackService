@@ -9,7 +9,7 @@ class Image
             return "NULL";
         }
 
-        $imgDir = ROOT . 'imageStorage';
+        $imgDir = ROOT . '/public/imageStorage';
         @mkdir($imgDir, 0777);
 
         $tmp = $file['tmp_name'];

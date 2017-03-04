@@ -1,4 +1,0 @@
-1. База данных feedback состоит из следующих таблиц: users, feedback;
-2. Таблица users имеет следующие поля: id, login, password (md5), email, privileges (1 - admin, 0 - обычный пользователь (по умолчанию))
-3. Таблица feed: id, text, date, is_changed (1 - изменен админом, 0 - нет (по умолчанию)), image_name (NULL),
-                     visibility (1 по умолчанию, 0 - не видимый, юзеру с правами админа видны все).

@@ -21,7 +21,7 @@
             echo "Email: {$item['email']}</br>";
             echo "Text: {$item['text']}</br>";
             echo "Date: {$item['feed_date']}</br>";
-
+echo "Path: {$item['image_path']}";
             if($item['image_path'] != 'NULL')
             {
                 echo "Img:</br><img src='/imageStorage/{$item['image_path']}'></br>";

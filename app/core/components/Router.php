@@ -11,7 +11,7 @@ class Router
 
     public function __construct()
     {
-        $routesPath = ROOT . 'core/config/routes.php';
+        $routesPath = ROOT . 'app/core/config/routes.php';
         $this->routes = require_once ($routesPath);
     }
 

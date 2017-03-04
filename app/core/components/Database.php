@@ -10,7 +10,7 @@ class Database
     {
         if(empty(self::$connection))
         {
-            $path = ROOT . 'core/config/db_params.php';
+            $path = ROOT . 'app/core/config/db_params.php';
             $dbConfig = require_once ($path);
 
             try
