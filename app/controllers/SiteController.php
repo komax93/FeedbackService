@@ -7,7 +7,10 @@ class SiteController
         $order = isset($_GET['order']) ? filter_var($_GET['order'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
         $feedbackList = Feedback::getSortedFeedbackBy($order);
 
-        require_once (APP_PATH. 'views/site/index.php');
+        $smarty = Viewer::getInstance();
+        $smarty->assign("feedback", $feedbackList);
+        $smarty->display("index.tpl");
+
         return true;
     }
 
