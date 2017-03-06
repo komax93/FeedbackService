@@ -45,7 +45,8 @@ class UserController
             }
         }
 
-        require_once (APP_PATH . 'views/user/login.php');
+        $smarty = Viewer::getInstance();
+        $smarty->display('login.tpl');
         return true;
     }
 
@@ -98,7 +99,8 @@ class UserController
             }
         }
 
-        require_once (APP_PATH . 'views/user/register.php');
+        $smarty = Viewer::getInstance();
+        $smarty->display('signup.tpl');
         return true;
     }
 
