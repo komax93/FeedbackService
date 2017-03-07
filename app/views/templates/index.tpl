@@ -20,6 +20,13 @@
                 <div class="comment__text"></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="comment__img comment__img--">
+                    <img src="">
+                </div>
+            </div>
+        </div>
     </div>
 
     {foreach from=$feedback item=item}
@@ -44,9 +51,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="comment__img">
-
                             <img src="/imageStorage/{$item.image_path}">
-
                         </div>
                     </div>
                 </div>
