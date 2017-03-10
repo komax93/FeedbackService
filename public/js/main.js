@@ -14,6 +14,10 @@ $(document).ready(function() {
             getPreviewImg("#my-file-selector", ".comment-toggle .comment__img > img");
         }
     });
+
+    $(".form__file").on("change", function(){
+        getPreviewImg(this, ".form__img > img");
+    });
 });
 
 function getCurrentTime() {

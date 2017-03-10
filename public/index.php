@@ -4,7 +4,9 @@
 // 1. Common settings, error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
-session_start();
+session_start([
+    'cookie_lifetime' => 86400,
+]);
 
 // 2. Including system core
 define('ROOT', dirname(__DIR__));

@@ -11,9 +11,10 @@ class User
 
             try
             {
-                $sql = "SELECT * FROM admins WHERE login = :login AND password = :password";
+                $sql = "SELECT * FROM admins WHERE (login = :loginOrEmail OR email = :loginOrEmail) AND password = :password";
                 $result = $db->prepare($sql);
-                $result->bindParam(':login', $user['login'], PDO::PARAM_STR);
+                $result->bindParam(':loginOrEmail', $user['login'], PDO::PARAM_STR);
+                $result->bindParam(':loginOrEmail', $user['login'], PDO::PARAM_STR);
                 $result->bindParam(':password', $password, PDO::PARAM_STR);
                 $result->execute();
 
@@ -104,7 +105,7 @@ class User
         return false;
     }
 
-    public static function isAdmin($user)
+    public static function isAdmin()
     {
         if(isset($_SESSION['user']))
         {

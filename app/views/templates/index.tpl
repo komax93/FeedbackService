@@ -33,8 +33,14 @@
         <div class="comment">
             <div class="row">
                 <div class="col-md-12">
+                    {if $item.is_changed == 1}
+                        <div class="comment__changed">Изменен администратором</div>
+                    {/if}
                     <a href="/?order=email" class="comment__email">{$item.email}</a>
-                    <a href="/?order=login" class="comment__login">{$item.login}</a>
+                    <a href="/?order=login" class="comment__login">({$item.login})</a>
+                    {if isset($smarty.session.user)}
+                        <div style="float:right; font-size: 80%;"><a href="/edit/{$item.id}">edit</a></div>
+                    {/if}
                 </div>
             </div>
             <div class="row">
