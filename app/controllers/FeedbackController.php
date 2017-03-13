@@ -78,6 +78,7 @@ class FeedbackController
             $login = filter_var($_POST['login'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $email = filter_var($_POST['email'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $text = filter_var($_POST['text'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $visibility = intval($_POST['visibility']);
             $imageFile = (!empty($_FILES['file']['tmp_name'])) ? $_FILES['file'] : null;
 
             $errors = false;
@@ -110,6 +111,7 @@ class FeedbackController
                         'login' => $login,
                         'email' => $email,
                         'text' => $text,
+                        'visibility' => $visibility,
                         'image_path' => $imgResult
                     ];
 

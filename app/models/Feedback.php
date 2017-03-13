@@ -9,7 +9,15 @@ class Feedback
         
         try
         {
-            $sql = "SELECT * FROM feed ORDER BY {$orderBy} DESC";
+            if(User::isAdmin())
+            {
+                $sql = "SELECT * FROM feed ORDER BY {$orderBy} DESC";
+            }
+            else
+            {
+                $sql = "SELECT * FROM feed WHERE visibility = 1 ORDER BY {$orderBy} DESC";
+            }
+
             $feed = $db->query($sql);
             
             $i = 0;
@@ -84,12 +92,12 @@ class Feedback
     public static function updateFeedback($feedback)
     {
         $db = Database::getConnection();
-        $currentDate = time();
 
         try
         {
             $sql = "UPDATE feed 
-                    SET login = :login, email = :email, text = :text, feed_date = :feed_date, is_changed = 1
+                    SET login = :login, email = :email, text = :text, 
+                        is_changed = 1, visibility = :visibility
                     WHERE id = :id";
             $feed = $db->prepare($sql);
 
@@ -97,7 +105,7 @@ class Feedback
             $feed->bindParam(':login', $feedback['login'], PDO::PARAM_STR);
             $feed->bindParam(':email', $feedback['email'], PDO::PARAM_STR);
             $feed->bindParam(':text', $feedback['text'], PDO::PARAM_STR);
-            $feed->bindParam(':feed_date', $currentDate, PDO::PARAM_INT);
+            $feed->bindParam(':visibility', $feedback['visibility'], PDO::PARAM_INT);
             $feed->execute();
         }
         catch (PDOException $e)

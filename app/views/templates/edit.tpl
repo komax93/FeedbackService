@@ -13,6 +13,13 @@
         <label for="exampleTextarea">Text</label>
         <textarea class="form-control" name="text" id="exampleTextarea" rows="3">{$feedback.text}</textarea>
     </div>
+    <div class="form-group">
+        <label for="visibility">Visibility</label>
+        <select id="visibility" name="visibility">
+            <option value="1" {if $feedback.visibility == 1}selected{/if}>Visible</option>
+            <option value="0" {if $feedback.visibility == 0}selected{/if}>Disable</option>
+        </select>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <label for="exampleInputEmail">Image</label>
